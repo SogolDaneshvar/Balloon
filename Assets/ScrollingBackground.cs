@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    public GameManagerScript GameManager;  // Reference to the Game manager script
+    //public GameManagerScript GameManager;  // Reference to the Game manager script
     public float scrollSpeed;
     [SerializeField] private Renderer bgrenderer;
     public float distanceTraveled = 0f;  // Track the total distance traveled
@@ -22,17 +22,18 @@ public class ScrollingBackground : MonoBehaviour
         // Check if player has reached the city
         if (distanceTraveled >= distanceToCity)
         {
-            TriggerEndSceneTransition();
+            SceneManager.LoadScene("CityScene");
+            //TriggerEndSceneTransition();
         }
     }
-    private void TriggerEndSceneTransition()
+   /* private void TriggerEndSceneTransition()
     {
         // Use SceneTransitionManager to transition to the final city scene
         GameManager.EndingSceneTransition();
 
         //UnityEngine.SceneManagement.SceneManager.LoadScene("CityScene");
 
-    } 
+    } */
 
     public float GetProgressPercentage()
     {

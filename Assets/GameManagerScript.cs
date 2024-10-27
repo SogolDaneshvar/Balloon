@@ -22,12 +22,13 @@ public class GameManagerScript : MonoBehaviour
     private ScoreManager scoreManager;
     void Start()
     {
-        StartingSceneTransition("MainScene"); //Start the transition when opening the main scene
+       // StartingSceneTransition("MainScene"); //Start the transition when opening the main scene
         gameOverCanvas.SetActive(false); // Ensure the game over UI is hidden at start
         canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>(); // Get the Canvas Group component
         scoreManager = FindObjectOfType<ScoreManager>(); // Find the ScoreManager in the scene
     }
-
+     
+    /*
 
     // Call this method to start the transition to a new scene
     public void StartingSceneTransition(string sceneName)
@@ -79,7 +80,7 @@ public class GameManagerScript : MonoBehaviour
 
         //Deactivate the end transition prefab
         EndTransitionPrefab.SetActive(false);
-    }
+    } */
 
 
     // Method to trigger the game over screen with fade-in
@@ -94,7 +95,7 @@ public class GameManagerScript : MonoBehaviour
     }
 
     // Fade-in coroutine to gradually increase alpha
-    private IEnumerator FadeIn()
+    public IEnumerator FadeIn()
     {
         canvasGroup.alpha = 0; // Start fully transparent
         float duration = 1.5f; // Duration of fade-in
