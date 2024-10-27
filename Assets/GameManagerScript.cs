@@ -5,24 +5,82 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManagerScript : MonoBehaviour
 {
-    public Animation StartingTransitionAnimation;  // Reference to the start transition Animation component
-    public Animation EndingTransitionAnimation;    // Reference to the end transition Animation component
+    [SerializeField] private GameObject StartTransitionPrefab; // Reference to the start transition prefab
+    [SerializeField] private GameObject EndTransitionPrefab; // Reference to the end transition prefab
+    public Animator StartingTransitionAnimation;  // Reference to the start transition Animation component
+    public Animator EndingTransitionAnimation;    // Reference to the end transition Animation component
     public string startTransitionClipName;      // Name of the start transition animation clip
     public string endTransitionClipName;        // Name of the end transition animation clip
-    public float transitionDuration = 1.5f;       // Duration of the transition animations (match to animation length)
+    public float transitionDuration = 1f;       // Duration of the transition animations (match to animation length)
     public GameObject gameOverCanvas; // Reference to the GameOverCanvas
     public TextMeshProUGUI scoreText; // Reference to the score text UI element
     private CanvasGroup canvasGroup; // Reference to the Canvas Group for fading
     private ScoreManager scoreManager;
     void Start()
     {
+        StartingSceneTransition("MainScene"); //Start the transition when opening the main scene
         gameOverCanvas.SetActive(false); // Ensure the game over UI is hidden at start
         canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>(); // Get the Canvas Group component
         scoreManager = FindObjectOfType<ScoreManager>(); // Find the ScoreManager in the scene
     }
+
+
+    // Call this method to start the transition to a new scene
+    public void StartingSceneTransition(string sceneName)
+    {
+        StartCoroutine(PlayStartTransition(sceneName));
+    }
+    // Coroutine to handle the start transition and scene load
+    private IEnumerator PlayStartTransition(string sceneName)
+    {
+        // Activate the start transition prefab
+        StartTransitionPrefab.SetActive(true);
+
+        //  Wait a frame to ensure the Animator initializes
+        yield return null;
+
+        // Play the "start transition" animation
+        StartingTransitionAnimation.Play(startTransitionClipName);
+
+        // Wait for the animation to finish (adjust transitionDuration to match animation length)
+        yield return new WaitForSeconds(transitionDuration);
+
+        // Load the new scene
+        SceneManager.LoadScene(sceneName);
+
+        // Deactivate the start transition prefab
+        StartTransitionPrefab.SetActive(false);
+
+    }
+
+    // Call this method when ending a scene
+    public void EndingSceneTransition()
+    {
+        StartCoroutine(PlayEndTransitionRoutine());
+    }
+
+    private IEnumerator PlayEndTransitionRoutine()
+    {
+        // Activate the end transition prefab
+        EndTransitionPrefab.SetActive(true);
+
+        //  Wait a frame to ensure the Animator initializes
+        yield return null;
+
+        // Play the "end transition" animation
+        EndingTransitionAnimation.Play(endTransitionClipName);
+
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(transitionDuration);
+
+        //Deactivate the end transition prefab
+        EndTransitionPrefab.SetActive(false);
+    }
+
 
     // Method to trigger the game over screen with fade-in
     public void GameOver()
@@ -54,38 +112,6 @@ public class GameManagerScript : MonoBehaviour
     public void PlayAgain()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); // Reload the current scene
-    }
-    // Call this method to start the transition to a new scene
-    public void StartSceneTransition(string sceneName)
-    {
-        StartCoroutine(PlayStartTransition(sceneName));
-    }
-    // Coroutine to handle the start transition and scene load
-    private IEnumerator PlayStartTransition(string sceneName)
-    {
-        // Play the "start transition" animation
-        StartingTransitionAnimation.Play(startTransitionClipName);
-
-        // Wait for the animation to finish (adjust transitionDuration to match animation length)
-        yield return new WaitForSeconds(transitionDuration);
-
-        // Load the new scene
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // Call this method when the new scene starts to play the end transition
-    public void PlayEndTransition()
-    {
-        StartCoroutine(PlayEndTransitionRoutine());
-    }
-
-    private IEnumerator PlayEndTransitionRoutine()
-    {
-        // Play the "end transition" animation
-       EndingTransitionAnimation.Play(endTransitionClipName);
-
-        // Wait for the animation to finish
-        yield return new WaitForSeconds(transitionDuration);
     }
 }
 
