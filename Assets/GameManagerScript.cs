@@ -29,7 +29,7 @@ public class GameManagerScript : MonoBehaviour
 
 
     }
-     
+
     /*
 
     // Call this method to start the transition to a new scene
@@ -91,13 +91,15 @@ public class GameManagerScript : MonoBehaviour
         gameOverCanvas.SetActive(true); // Activate the Canvas
 
         // Get the final score from the ScoreManager and display it
-        float finalScore = scoreManager.GetScore(); // Get the score from ScoreManager
-        CoinScoreText.text = "Score: " + finalScore.ToString(); // Update score text on the game over screen
-        StartCoroutine(FadeIn()); // Start the fade-in effect
-    }
+        float finalScore = scoreManager.GetScore();
+        CoinScoreText.text = "Score: " + finalScore.ToString();
 
+        StartCoroutine(FadeIn()); // Start the fade-in effect
+
+        Time.timeScale = 0; // Pause the game
+    }
     // Fade-in coroutine to gradually increase alpha
-    public IEnumerator FadeIn()
+    private IEnumerator FadeIn()
     {
         canvasGroup.alpha = 0; // Start fully transparent
         float duration = 1.5f; // Duration of fade-in
@@ -105,17 +107,18 @@ public class GameManagerScript : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime; // Use unscaled time since time is paused
             canvasGroup.alpha = Mathf.Clamp01(elapsed / duration); // Gradually increase alpha
             yield return null;
         }
     }
 
     // Method linked to the Play Again button
-    public void PlayAgain() 
+    public void PlayAgain()
     {
-        Debug.Log("Play again" ); // Debug log
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); // Reload the current scene
+        Debug.Log("Play again"); // Debug log
+        Time.timeScale = 1; // Resume the game time
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
 }
 
