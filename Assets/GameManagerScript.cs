@@ -26,6 +26,8 @@ public class GameManagerScript : MonoBehaviour
         gameOverCanvas.SetActive(false); // Ensure the game over UI is hidden at start
         canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>(); // Get the Canvas Group component
         scoreManager = FindObjectOfType<ScoreManager>(); // Find the ScoreManager in the scene
+
+
     }
      
     /*
