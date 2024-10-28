@@ -782,7 +782,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &573707034
 RectTransform:
@@ -793,7 +793,7 @@ RectTransform:
   m_GameObject: {fileID: 573707030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.30651045, y: 0.30651045, z: 0.30651045}
+  m_LocalScale: {x: 0.37777779, y: 0.37777779, z: 0.37777779}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 364161016}
@@ -803,8 +803,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 294.25003, y: 165.5}
-  m_SizeDelta: {x: 1920, y: 1079.898}
+  m_AnchoredPosition: {x: 362.25003, y: 204}
+  m_SizeDelta: {x: 1917.7942, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &573707035
 CanvasGroup:
@@ -2044,7 +2044,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490365006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cee1d0a2d40e2540b7c1eadca89e251, type: 3}
   m_Name: 
@@ -2119,17 +2119,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490365006}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbbd67b25f028f9438294dc855f296c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.03
-  verticalSpeed: 0.03
-  scoreManager: {fileID: 643626078}
+  speed: 0.02
+  verticalSpeed: 0.02
   fallingSpeed: 0
+  scoreManager: {fileID: 643626078}
   HeartBarAnimator: {fileID: 1362989728}
   AirPuffPrefab: {fileID: 6966289666423458146, guid: 31122f4c315a93e40b034a98afe394f1, type: 3}
+  smoothingFactor: 0.2
 --- !u!1 &1526935868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,7 +2506,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1831848925
 RectTransform:
@@ -3087,7 +3088,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &2139996498
 RectTransform:
