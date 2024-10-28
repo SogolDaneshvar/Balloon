@@ -44,7 +44,7 @@ public class BalloonSensorScript : MonoBehaviour
         }
 
         // Calculate the local positions of the holes using double precision
-        CalculateHolePositions();
+       // CalculateHolePositions();
 
         // Hadis
         serialPort = new SerialPort("COM3", 9600);
@@ -99,12 +99,13 @@ public class BalloonSensorScript : MonoBehaviour
             Debug.Log("Serial port closed.");
         }
     }
+}
 
-    private void OnTriggerEnter2D(Collider2D other)
+   /* private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            scoreManager.IncreaseScore(0.5f); // Call the IncreaseScore method on the ScoreManager instance
+            scoreManager.IncreaseCoinScore(0.5f); // Call the IncreaseScore method on the ScoreManager instance
             Destroy(other.gameObject); // Destroy the coin
             Debug.Log("Coin collected"); // Debug log
         }
@@ -130,7 +131,7 @@ public class BalloonSensorScript : MonoBehaviour
             HeartBarAnimator.SetTrigger("ThirdCollision"); // this wiil trigger the transition to the third state
             ActivateGravityOnBalloon();
         }
-
+   
 
 
     }
@@ -234,7 +235,7 @@ public class BalloonSensorScript : MonoBehaviour
             Debug.LogError("Balloon instance not found");
         }
     }
-}
+} */
 
 
 

@@ -9,15 +9,15 @@ using System;
 
 public class GameManagerScript : MonoBehaviour
 {
-    [SerializeField] private GameObject StartTransitionPrefab; // Reference to the start transition prefab
-    [SerializeField] private GameObject EndTransitionPrefab; // Reference to the end transition prefab
-    public Animator StartingTransitionAnimation;  // Reference to the start transition Animation component
-    public Animator EndingTransitionAnimation;    // Reference to the end transition Animation component
-    public string startTransitionClipName;      // Name of the start transition animation clip
-    public string endTransitionClipName;        // Name of the end transition animation clip
-    public float transitionDuration = 1f;       // Duration of the transition animations (match to animation length)
+    //[SerializeField] private GameObject StartTransitionPrefab; // Reference to the start transition prefab
+   // [SerializeField] private GameObject EndTransitionPrefab; // Reference to the end transition prefab
+    //public Animator StartingTransitionAnimation;  // Reference to the start transition Animation component
+    //public Animator EndingTransitionAnimation;    // Reference to the end transition Animation component
+   // public string startTransitionClipName;      // Name of the start transition animation clip
+  //  public string endTransitionClipName;        // Name of the end transition animation clip
+   // public float transitionDuration = 1f;       // Duration of the transition animations (match to animation length)
     public GameObject gameOverCanvas; // Reference to the GameOverCanvas
-    public TextMeshProUGUI scoreText; // Reference to the score text UI element
+    public TextMeshProUGUI CoinScoreText; // Reference to the score text UI element
     private CanvasGroup canvasGroup; // Reference to the Canvas Group for fading
     private ScoreManager scoreManager;
     void Start()
@@ -92,7 +92,7 @@ public class GameManagerScript : MonoBehaviour
 
         // Get the final score from the ScoreManager and display it
         int finalScore = scoreManager.GetScore(); // Get the score from ScoreManager
-        scoreText.text = "Score: " + finalScore.ToString(); // Update score text on the game over screen
+        CoinScoreText.text = "Score: " + finalScore.ToString(); // Update score text on the game over screen
         StartCoroutine(FadeIn()); // Start the fade-in effect
     }
 

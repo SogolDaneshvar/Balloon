@@ -59,7 +59,7 @@ public class BalloonScript : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            scoreManager.IncreaseScore(0.5f); // Call the IncreaseScore method on the ScoreManager instance
+            scoreManager.IncreaseCoinScore(0.5f); // Call the IncreaseScore method on the ScoreManager instance
             Destroy(other.gameObject); // Destroy the coin
             Debug.Log("Coin collected"); // Debug log
         }
