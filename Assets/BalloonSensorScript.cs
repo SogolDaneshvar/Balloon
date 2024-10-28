@@ -11,7 +11,7 @@ public class BalloonSensorScript : MonoBehaviour
     private Rigidbody2D rb;
     public ScoreManager scoreManager; // Reference to the ScoreManager
     public float fallingSpeed; //Speed of the balloon with hole whe falling down
-    private int collisionCount = 0; // Track the number of collisions
+   // private int collisionCount = 0; // Track the number of collisions
     private Animator BalloonAnimator; // Reference to the balloon Animator component
     public Animator HeartBarAnimator; // Reference to the heart bar animator component
     public GameObject AirPuffPrefab; // Reference to the airpuff prefab

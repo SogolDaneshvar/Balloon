@@ -10,8 +10,7 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI CoinScoreText;
     public TextMeshProUGUI MeteorScoreText;
     private float meteorScore;
-    private float CoinScore = 0;
-   // private float scoreCount = 0;
+    float CoinScore = 0;
 
     public void IncreaseCoinScore(float amount)
     {
@@ -27,8 +26,9 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("Meteor Score updated: " + meteorScore);
     }
     // Getter method to retrieve the current score
-    public int GetScore()
+    public float GetScore()
     {
-        return (int)CoinScore; // Return the current score
+        Debug.Log("Score: " + CoinScore); // Debug log
+        return (float)CoinScore; // Return the current score
     }
 }

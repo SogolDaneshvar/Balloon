@@ -91,7 +91,7 @@ public class GameManagerScript : MonoBehaviour
         gameOverCanvas.SetActive(true); // Activate the Canvas
 
         // Get the final score from the ScoreManager and display it
-        int finalScore = scoreManager.GetScore(); // Get the score from ScoreManager
+        float finalScore = scoreManager.GetScore(); // Get the score from ScoreManager
         CoinScoreText.text = "Score: " + finalScore.ToString(); // Update score text on the game over screen
         StartCoroutine(FadeIn()); // Start the fade-in effect
     }
@@ -112,8 +112,9 @@ public class GameManagerScript : MonoBehaviour
     }
 
     // Method linked to the Play Again button
-    public void PlayAgain()
+    public void PlayAgain() 
     {
+        Debug.Log("Play again" ); // Debug log
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); // Reload the current scene
     }
 }
