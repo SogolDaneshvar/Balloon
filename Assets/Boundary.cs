@@ -11,6 +11,7 @@ public class Boundary : MonoBehaviour
     public float rightMargin = 0.1f; // Space between balloon and right side of screen
 
     private float minX, maxX, minY, maxY;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -25,13 +26,14 @@ public class Boundary : MonoBehaviour
 
     void Update()
     {
-        // Clamp the balloon's position to keep it within the boundaries
-        Vector3 clampedPosition = transform.position;
-        clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
 
-        // Apply the clamped position to the balloon
-        transform.position = clampedPosition;
+        if (!isGameOver)
+        {
+            Vector3 clampedPosition = transform.position;
+            clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
+            clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
+            transform.position = clampedPosition;
+        }
     }
 
     void CalculateBoundaries()
@@ -45,6 +47,11 @@ public class Boundary : MonoBehaviour
         maxX = mainCamera.transform.position.x + camHeight * screenAspect - rightMargin;
         minY = mainCamera.transform.position.y - camHeight + bottomMargin;
         maxY = mainCamera.transform.position.y + camHeight - topMargin;
+    }
+
+    public void DeactivateBoundary()
+    {
+        isGameOver = true;
     }
 
     void OnDrawGizmos()

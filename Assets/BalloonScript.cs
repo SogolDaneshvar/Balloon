@@ -5,6 +5,8 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class BalloonScript : MonoBehaviour
 {
+    
+
     public float speed = 5f; // Speed of balloon movement
     public float verticalSpeed = 5f; // Speed of vertical movement
     private Rigidbody2D rb;
@@ -18,7 +20,10 @@ public class BalloonScript : MonoBehaviour
 
     // Positions for air puff to spawn near holes
     private Vector3 firstHoleLocalPosition;
-    private Vector3 secondHoleLocalPosition;
+    //private Vector3 secondHoleLocalPosition;
+
+    private Boundary boundaryScript; //Refering to the boundary script
+
 
 
     void Start()
@@ -39,7 +44,7 @@ public class BalloonScript : MonoBehaviour
         // Calculate the local positions of the holes using double precision
         CalculateHolePositions();
 
-
+        boundaryScript = GetComponent<Boundary>();
     }
 
     void Update()
@@ -120,7 +125,7 @@ public class BalloonScript : MonoBehaviour
 
          // Convert the double values to floats and store in Vector3 for local positioning
          firstHoleLocalPosition = new Vector3((float)firstHoleX, (float)firstHoleY, 0);
-         secondHoleLocalPosition = new Vector3((float)secondHoleX, (float)secondHoleY, 0);
+        // secondHoleLocalPosition = new Vector3((float)secondHoleX, (float)secondHoleY, 0);
 
          // Debug the hole positions to check the values
         // Debug.Log("First Hole Position: " + firstHoleLocalPosition);
@@ -160,7 +165,7 @@ public class BalloonScript : MonoBehaviour
         Destroy(airPuff, 1f); // Adjust the time based on your animation length
     }
 
-
+   
 
 
 
@@ -178,7 +183,13 @@ public class BalloonScript : MonoBehaviour
             {
                 // Set gravityScale to 1 to enable gravity and make the balloon fall
                 RB.gravityScale = fallingSpeed;
-                Debug.Log("Gravity activated on Balloon"); // Debug log to confirm gravity activation
+
+                // Debug log to confirm gravity activation
+                Debug.Log("Gravity activated on Balloon"); 
+
+                // Deactivate boundary to allow falling out of screen
+                boundaryScript.DeactivateBoundary();
+
                 //  Add a script to handle when the balloon exits the camera view**
                 Balloon.AddComponent<BalloonExitHandler>();
             }
@@ -191,9 +202,7 @@ public class BalloonScript : MonoBehaviour
     }
 }
 
-        
-
-    
+       
 public class BalloonExitHandler : MonoBehaviour
 {
     private void OnBecameInvisible()
@@ -203,7 +212,7 @@ public class BalloonExitHandler : MonoBehaviour
         Debug.Log("Balloon has exited the camera view. Game Over triggered.");
     }
 }
-
+  
 
 
 
