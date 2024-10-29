@@ -1395,7 +1395,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1100128276, guid: 51e5f61fc7e07814289ed28baa09bb0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1959,6 +1959,7 @@ GameObject:
   - component: {fileID: 1490365008}
   - component: {fileID: 1490365007}
   - component: {fileID: 1490365010}
+  - component: {fileID: 1490365014}
   - component: {fileID: 1490365013}
   - component: {fileID: 1490365009}
   - component: {fileID: 1490365011}
@@ -2044,7 +2045,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490365006}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cee1d0a2d40e2540b7c1eadca89e251, type: 3}
   m_Name: 
@@ -2119,7 +2120,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490365006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbbd67b25f028f9438294dc855f296c4, type: 3}
   m_Name: 
@@ -2131,6 +2132,23 @@ MonoBehaviour:
   HeartBarAnimator: {fileID: 1362989728}
   AirPuffPrefab: {fileID: 6966289666423458146, guid: 31122f4c315a93e40b034a98afe394f1, type: 3}
   smoothingFactor: 0.2
+--- !u!114 &1490365014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490365006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb5f32832e525a479af0fd994e7f0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 519420031}
+  topMargin: 3
+  bottomMargin: 1.5
+  leftMargin: 6.5
+  rightMargin: 3
 --- !u!1 &1526935868
 GameObject:
   m_ObjectHideFlags: 0
