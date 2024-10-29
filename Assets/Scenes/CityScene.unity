@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d15edf5ba2f98241990a36456c7b4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 1.8
+  fadeSpeed: 0.8
 --- !u!1 &216001813
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +471,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d9da8851284c50e4e8d054382581f963, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80b15f6c095e9854d873b1f3de8fb2bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -490,8 +490,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216001813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19, y: 6.16, z: 10}
-  m_LocalScale: {x: 2.8884542, y: 2.0963483, z: 1}
+  m_LocalPosition: {x: -0.19, y: 11.146, z: 10}
+  m_LocalScale: {x: 2.8884542, y: 2.6990485, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1065180230}
@@ -514,10 +514,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 3.5
-  scrollDistance: 48
+  scrollDistance: 55
   fadeOverlay: {fileID: 1254228543}
   congratsCanvas: {fileID: 1753073598}
-  fadeDuration: 1.5
+  fadeDuration: 2.5
 --- !u!1 &226706007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,7 +1093,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.239997
+  orthographic size: 7.718523
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1118,7 +1118,7 @@ Transform:
   m_GameObject: {fileID: 411675473}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.32, y: -35.7, z: -10}
-  m_LocalScale: {x: 3.5632424, y: 1.6038882, z: 1.1149}
+  m_LocalScale: {x: 3.9413023, y: 1.7740606, z: 1.2331909}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2729,6 +2729,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6832341610050375412, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ec0a2cd023a312248a3ff653ab465980, type: 3}
+    - target: {fileID: 6832341610050375412, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
@@ -2758,11 +2762,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6832341610050375419, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.34422022
+      value: 0.25294337
       objectReference: {fileID: 0}
     - target: {fileID: 6832341610050375419, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3096348
+      value: 0.22752894
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832341610050375419, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.73483
       objectReference: {fileID: 0}
     - target: {fileID: 6832341610050375419, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3323,7 +3331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1330763393
 Transform:
   m_ObjectHideFlags: 0
@@ -4395,7 +4403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d15edf5ba2f98241990a36456c7b4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 1.8
+  fadeSpeed: 0.8
 --- !u!70 &1773357413
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4849,7 +4857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2003700414
 SpriteRenderer:
   m_ObjectHideFlags: 0
