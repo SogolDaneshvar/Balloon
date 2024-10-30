@@ -8,7 +8,7 @@ using UnityEngine.XR;
 
 public class MainMenu : MonoBehaviour
 {
-    public Slider controlSlider;
+    public Slider slider; // Make sure this slider is public so other scripts can access it
 
     // Method to start the game
     public void PlayGame()
@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
    // Method to handle the slider value change
     public void HandleControlSelection()
     {
-        int selectedOption = (int)controlSlider.value;  // 0 for Hand, 1 for Feet
+        int selectedOption = (int)slider.value;  // 0 for Hand, 1 for Feet
         string controlChoice = selectedOption == 0 ? "Hand" : "Feet";
 
         // Store the selected option if needed (e.g., PlayerPrefs or other variable)

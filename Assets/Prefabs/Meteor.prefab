@@ -136,6 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c93a95570fd93048aeea864cbd6f3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuScript: {fileID: 7486547137432922331, guid: de65f222075e76a47ad959f3e5d7ac38, type: 3}
+  balloonSensorScript: {fileID: -2991087048585698602, guid: 79aae0423b35b904fba25191dbe6bb02, type: 3}
   amplitude: 2
   frequency: 2
   fallSpeed: 5

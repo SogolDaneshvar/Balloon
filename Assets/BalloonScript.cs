@@ -1,22 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO.Ports;
 using static UnityEngine.RuleTile.TilingRuleOutput;
-using UnityEngine.SceneManagement;
 
 public class BalloonScript : MonoBehaviour
 {
-    public float speed; // Speed of balloon movement
-    public float verticalSpeed; // Speed of vertical movement
+    
+
+    public float speed = 5f; // Speed of balloon movement
+    public float verticalSpeed = 5f; // Speed of vertical movement
     private Rigidbody2D rb;
     public ScoreManager scoreManager; // Reference to the ScoreManager
-    public float fallingSpeed = 1f; //Speed of the balloon with hole whe falling down
+    public float fallingSpeed= 1f; //Speed of the balloon with hole whe falling down
     private int collisionCount = 0; // Track the number of collisions
     private Animator BalloonAnimator; // Reference to the balloon Animator component
     public Animator HeartBarAnimator; // Reference to the heart bar animator component
     public GameObject AirPuffPrefab; // Reference to the airpuff prefab
-                                     // private Vector3 balloonSize; // Size of the balloon sprite
+   // private Vector3 balloonSize; // Size of the balloon sprite
 
     // Positions for air puff to spawn near holes
     private Vector3 firstHoleLocalPosition;
@@ -24,16 +24,7 @@ public class BalloonScript : MonoBehaviour
 
     private Boundary boundaryScript; //Refering to the boundary script
 
-    // Serial port for sensor data
-    private SerialPort serialPort;
-    private float averaged_ax = 0;
-    private float averaged_ay = 0;
 
-    // Smoothing variables
-    private Vector2 previousSpeed = Vector2.zero;
-    private Vector2 targetSpeed = Vector2.zero;
-    private Vector2 currentSpeed = Vector2.zero; // Holds the current smoothed speed
-    public float smoothingFactor = 0.2f; // Increase for more responsiveness
 
     void Start()
     {
@@ -45,135 +36,107 @@ public class BalloonScript : MonoBehaviour
             Debug.LogError("ScoreManager not assigned in the Inspector!");
         }
         BalloonAnimator = GetComponent<Animator>(); //get the balloon animator component
-        if (HeartBarAnimator == null)
+      if (HeartBarAnimator == null)
         {
             Debug.LogError("heartbar animation is not assigned in the inspector");
-        }
-
+       }
+       
         // Calculate the local positions of the holes using double precision
         CalculateHolePositions();
 
         boundaryScript = GetComponent<Boundary>();
-
-        // Initialize serial port for sensor data
-        serialPort = new SerialPort("COM5", 9600);
-        serialPort.Open();
-
-        if (serialPort.IsOpen)
-        {
-            Debug.Log("Serial port opened successfully.");
-        }
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        // Read sensor data if available
-        if (serialPort.IsOpen && serialPort.BytesToRead > 0)
-        {
-            try
-            {
-                string line = serialPort.ReadLine();
-                string[] sensorData = line.Split(',');
+        // Combine horizontal and vertical input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-                averaged_ay = -int.Parse(sensorData[0]);
-                averaged_ax = int.Parse(sensorData[1]);
+        // Create a movement vector based on input
+        Vector2 movement = new Vector2(horizontalInput * speed, verticalInput * verticalSpeed);
 
-                // Hadis2
-                targetSpeed = new Vector2(averaged_ax * speed, averaged_ay * verticalSpeed);
-                currentSpeed = Vector2.Lerp(currentSpeed, targetSpeed, smoothingFactor);
-                rb.velocity = currentSpeed;
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning("Error reading serial data: " + e.Message);
-            }
-        }
+        // Apply movement
+        transform.Translate(movement * Time.deltaTime);
     }
-
-    void OnApplicationQuit()
-    {
-        if (serialPort != null && serialPort.IsOpen)
-        {
-            serialPort.Close();
-            Debug.Log("Serial port closed.");
-        }
-    }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            scoreManager.IncreaseCoinScore(0.5f); // Call the IncreaseScore method on the ScoreManager instance
+            scoreManager.IncreaseCoinScore(0f); // Call the IncreaseScore method on the ScoreManager instance
             Destroy(other.gameObject); // Destroy the coin
             Debug.Log("Coin collected"); // Debug log
         }
-        else if (other.CompareTag("Bat"))
+         else if (other.CompareTag("Bat")) 
         {
             Debug.Log("Collision with Bat detected");
 
             collisionCount++;
-            if (collisionCount == 1)
+            if(collisionCount == 1)
             {
                 TriggerFirstHole();
                 SpawnAirPuff(firstHoleLocalPosition, Quaternion.identity); // No rotation for the first air puff
             }
         }
-        if (collisionCount == 2)
-        {
-            TriggerSecondHole();
-            // SpawnAirPuff(secondHoleLocalPosition, Quaternion.Euler(0, 0, 180)); // Rotate the second air puff by 180 degrees on the Z-axis
+             if (collisionCount == 2)
+            {
+                TriggerSecondHole();
+               // SpawnAirPuff(secondHoleLocalPosition, Quaternion.Euler(0, 0, 180)); // Rotate the second air puff by 180 degrees on the Z-axis
 
         }
-        else if (collisionCount == 3)
-        {
-            HeartBarAnimator.SetTrigger("ThirdCollision"); // this will trigger the transition to the third state
-            ActivateGravityOnBalloon();
-        }
-    }
+             else if(collisionCount == 3)
+            {
+                HeartBarAnimator.SetTrigger("ThirdCollision"); // this will trigger the transition to the third state
+                ActivateGravityOnBalloon();
+            }
 
-    void CalculateHolePositions()
-    {
-        // Get the SpriteRenderer component
-        SpriteRenderer balloonRenderer = GetComponent<SpriteRenderer>();
-
-        // Ensure the balloonRenderer is valid
-        if (balloonRenderer == null || balloonRenderer.sprite == null)
-        {
-            Debug.LogError("Balloon SpriteRenderer or sprite is missing!");
-            return;
+           
+            
         }
 
-        // Get the size of the sprite in local space, accounting for the local scale of the balloon
-        Vector3 balloonSize = balloonRenderer.sprite.bounds.size; // Local size of the sprite
-        Vector3 localScale = transform.localScale; // Get the local scale of the balloon GameObject
+     void CalculateHolePositions()
+     {
+         // Get the SpriteRenderer component
+         SpriteRenderer balloonRenderer = GetComponent<SpriteRenderer>();
 
-        // Multiply the sprite's size by the local scale to get the actual size in the world
-        balloonSize = new Vector3(balloonSize.x * localScale.x, balloonSize.y * localScale.y, 0);
+         // Ensure the balloonRenderer is valid
+         if (balloonRenderer == null || balloonRenderer.sprite == null)
+         {
+             Debug.LogError("Balloon SpriteRenderer or sprite is missing!");
+             return;
+         } 
 
-        // Debug the balloon size to check the values
+         // Get the size of the sprite in local space, accounting for the local scale of the balloon
+         Vector3 balloonSize = balloonRenderer.sprite.bounds.size; // Local size of the sprite
+         Vector3 localScale = transform.localScale; // Get the local scale of the balloon GameObject
+
+         // Multiply the sprite's size by the local scale to get the actual size in the world
+         balloonSize = new Vector3(balloonSize.x * localScale.x, balloonSize.y * localScale.y, 0);
+
+         // Debug the balloon size to check the values
         // Debug.Log("Balloon Size: " + balloonSize);
 
-        // Calculate the positions for the holes using more precise double calculations, converted to float for Vector3
-        double firstHoleX = balloonSize.x / 2;    // Near the right side
-        double firstHoleY = -balloonSize.y / 25;  // Slightly towards the top-left
-        double secondHoleX = -balloonSize.x / 2;  // Near the left side
-        double secondHoleY = balloonSize.y / 4;   // Slightly towards the bottom-right
+         // Calculate the positions for the holes using more precise double calculations, converted to float for Vector3
+         double firstHoleX = balloonSize.x / 2;    // Near the right side
+         double firstHoleY = -balloonSize.y / 25;  // Slightly towards the top-left
+         double secondHoleX = -balloonSize.x / 2;  // Near the left side
+         double secondHoleY = balloonSize.y / 4;   // Slightly towards the bottom-right
 
-        // Convert the double values to floats and store in Vector3 for local positioning
-        firstHoleLocalPosition = new Vector3((float)firstHoleX, (float)firstHoleY, 0);
+         // Convert the double values to floats and store in Vector3 for local positioning
+         firstHoleLocalPosition = new Vector3((float)firstHoleX, (float)firstHoleY, 0);
         // secondHoleLocalPosition = new Vector3((float)secondHoleX, (float)secondHoleY, 0);
 
-        // Debug the hole positions to check the values
+         // Debug the hole positions to check the values
         // Debug.Log("First Hole Position: " + firstHoleLocalPosition);
         // Debug.Log("Second Hole Position: " + secondHoleLocalPosition);
-    }
+     } 
 
     void TriggerFirstHole()
     {
         // Set Animator parameter or trigger for the first hole
-        BalloonAnimator.SetTrigger("FirstHole"); // This will trigger the transition to the first hole animation state
-        HeartBarAnimator.SetTrigger("FirstCollision"); // this will trigger the transition to the first hear bar state
+       BalloonAnimator.SetTrigger("FirstHole"); // This will trigger the transition to the first hole animation state
+       HeartBarAnimator.SetTrigger("FirstCollision"); // this will trigger the transition to the first hear bar state
         Debug.Log("Triggered first hole animation & first hearbat animation");
     }
 
@@ -202,7 +165,7 @@ public class BalloonScript : MonoBehaviour
         Destroy(airPuff, 1f); // Adjust the time based on your animation length
     }
 
-
+   
 
 
 
@@ -222,7 +185,7 @@ public class BalloonScript : MonoBehaviour
                 RB.gravityScale = fallingSpeed;
 
                 // Debug log to confirm gravity activation
-                Debug.Log("Gravity activated on Balloon");
+                Debug.Log("Gravity activated on Balloon"); 
 
                 // Deactivate boundary to allow falling out of screen
                 boundaryScript.DeactivateBoundary();
@@ -230,7 +193,7 @@ public class BalloonScript : MonoBehaviour
                 //  Add a script to handle when the balloon exits the camera view**
                 Balloon.AddComponent<BalloonExitHandler>();
             }
-
+            
         }
         else
         {
@@ -238,8 +201,8 @@ public class BalloonScript : MonoBehaviour
         }
     }
 }
-
-        
+/*
+       
 public class BalloonExitHandler : MonoBehaviour
 {
     private void OnBecameInvisible()
@@ -249,3 +212,8 @@ public class BalloonExitHandler : MonoBehaviour
         Debug.Log("Balloon has exited the camera view. Game Over triggered.");
     }
 }
+  
+
+*/
+
+

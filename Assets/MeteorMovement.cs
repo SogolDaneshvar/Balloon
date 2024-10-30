@@ -6,6 +6,9 @@ using UnityEngine;
 public class MeteorMovement : MonoBehaviour
 {
     private ScoreManager scoreManager;
+    public MainMenu mainMenuScript; // Reference to the MainMenuScript to access slider value
+    public BalloonSensorScript balloonSensorScript;
+
     // Amplitude of the zig-zag motion
     public float amplitude = 2.0f;
     // Speed of the zig-zag oscillation
@@ -41,14 +44,41 @@ public class MeteorMovement : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the collider belongs to the balloon (update with the correct tag)
+        if (mainMenuScript == null)
+        {
+            mainMenuScript = FindObjectOfType<MainMenu>();
+            if (mainMenuScript == null)
+            {
+                Debug.LogError("MainMenuScript could not be found in the scene.");
+                return;
+            }
+        }
+
+        if (mainMenuScript.slider == null)
+        {
+            Debug.LogError("Slider reference in MainMenuScript is null.");
+        }
+    
+
+        // Check if the collider belongs to the balloon
         if (other.CompareTag("Balloon"))
         {
-            // Increase the meteor score by 1
-            scoreManager.IncreaseMeteorScore(1);
-            Destroy(gameObject); // Destroy the meteor on collision
+            if (mainMenuScript.slider.value == 0) // If slider is set to 0 (hand)
+            {
+                if (balloonSensorScript.averaged_az < 13000)
+                {
+                    scoreManager.IncreaseMeteorScore(1);  // Increase the score by 1
+                    Destroy(gameObject);                  // Destroy the meteor
+                }
+            }
+            else if (mainMenuScript.slider.value == 1) // If slider is set to 1 (feet)
+            {
+                scoreManager.IncreaseMeteorScore(1);      // Increase the score by 1
+                Destroy(gameObject);                      // Destroy the meteor
+            }
         }
     }
 }
+
 
 
