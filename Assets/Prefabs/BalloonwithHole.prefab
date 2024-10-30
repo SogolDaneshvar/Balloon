@@ -181,6 +181,6 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   fallingSpeed: 1
   HeartBarAnimator: {fileID: 0}
-  AirPuffPrefab: {fileID: 0}
+  AirPuffPrefab: {fileID: 6966289666423458146, guid: 31122f4c315a93e40b034a98afe394f1, type: 3}
   averaged_az: 0
   smoothingFactor: 0.2
