@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d15edf5ba2f98241990a36456c7b4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 0.8
+  fadeSpeed: 0.9
 --- !u!1 &216001813
 GameObject:
   m_ObjectHideFlags: 0
@@ -4403,7 +4403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d15edf5ba2f98241990a36456c7b4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 0.8
+  fadeSpeed: 0.9
 --- !u!70 &1773357413
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
